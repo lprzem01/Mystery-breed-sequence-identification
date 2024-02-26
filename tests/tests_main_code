@@ -1,0 +1,3 @@
+#does the read_fasta function create any duplicate instances of breed?
+#does the read_fasta function work when using differnt sequence formats?
+#is breed name consistantly formated e.g. every word is capitalised?

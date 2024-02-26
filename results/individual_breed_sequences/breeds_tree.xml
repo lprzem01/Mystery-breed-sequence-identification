@@ -4,312 +4,312 @@
       <name>Inner38</name>
       <branch_length>0</branch_length>
       <clade>
-        <name>Inner37</name>
-        <branch_length>1.1430187014488142E-05</branch_length>
+        <name>Inner36</name>
+        <branch_length>4.813516535329494E-05</branch_length>
         <clade>
-          <name>Inner36</name>
-          <branch_length>4.8193519849859046E-05</branch_length>
+          <name>Inner35</name>
+          <branch_length>2.5316125759409396E-05</branch_length>
           <clade>
-            <name>Inner35</name>
-            <branch_length>2.5257771262845302E-05</branch_length>
+            <name>Portuguese Water dog</name>
+            <branch_length>0.00022383326019571008</branch_length>
+          </clade>
+          <clade>
+            <name>Inner34</name>
+            <branch_length>8.888848689122029E-05</branch_length>
             <clade>
-              <name>Portuguese Water dog</name>
-              <branch_length>0.00022386243744399213</branch_length>
-            </clade>
-            <clade>
-              <name>Inner34</name>
-              <branch_length>8.885930964293932E-05</branch_length>
+              <name>Inner28</name>
+              <branch_length>4.585496340005221E-05</branch_length>
               <clade>
-                <name>Inner33</name>
-                <branch_length>7.533565506422736E-05</branch_length>
+                <name>Inner23</name>
+                <branch_length>0.00018708982093870705</branch_length>
                 <clade>
-                  <name>Staffordshire Bull Terrier</name>
-                  <branch_length>0.0003213582125784144</branch_length>
-                </clade>
-                <clade>
-                  <name>Inner32</name>
-                  <branch_length>3.717181431130796E-05</branch_length>
+                  <name>Inner12</name>
+                  <branch_length>0.00038350575141918314</branch_length>
                   <clade>
-                    <name>Pit bull</name>
-                    <branch_length>0.00022618202868240854</branch_length>
+                    <name>boxer</name>
+                    <branch_length>0.0007974941628213119</branch_length>
                   </clade>
                   <clade>
-                    <name>Inner31</name>
-                    <branch_length>1.2837989244119291E-05</branch_length>
+                    <name>Inner6</name>
+                    <branch_length>0.0003677284245703586</branch_length>
                     <clade>
-                      <name>Canis Panther</name>
-                      <branch_length>7.469375560217981E-06</branch_length>
+                      <name>Husky</name>
+                      <branch_length>0.0002042761043358725</branch_length>
                     </clade>
                     <clade>
-                      <name>Inner30</name>
-                      <branch_length>5.2285628921413976E-05</branch_length>
+                      <name>Inner3</name>
+                      <branch_length>0.00019907017591511546</branch_length>
                       <clade>
-                        <name>Cocker Spaniel</name>
-                        <branch_length>0.00017926501344487923</branch_length>
+                        <name>Inner1</name>
+                        <branch_length>0.0003029246754971026</branch_length>
+                        <clade>
+                          <name>Azores Cattle dog</name>
+                          <branch_length>0.0006124887959366911</branch_length>
+                        </clade>
+                        <clade>
+                          <name>Miniature Schnauzer</name>
+                          <branch_length>0.0008216313116223648</branch_length>
+                        </clade>
                       </clade>
                       <clade>
-                        <name>Inner29</name>
-                        <branch_length>1.6642503347652493E-17</branch_length>
-                        <clade>
-                          <name>Rottweiler cross</name>
-                          <branch_length>5.55653613398821E-18</branch_length>
-                        </clade>
-                        <clade>
-                          <name>Great Dane cross</name>
-                          <branch_length>5.97550044816264E-05</branch_length>
-                        </clade>
+                        <name>Portuguese Warren dog, small size, smooth hair</name>
+                        <branch_length>5.560535139263365E-05</branch_length>
                       </clade>
                     </clade>
                   </clade>
                 </clade>
-              </clade>
-              <clade>
-                <name>Inner28</name>
-                <branch_length>5.625373468777251E-05</branch_length>
                 <clade>
-                  <name>Inner26</name>
-                  <branch_length>5.0954085408922204E-05</branch_length>
-                  <clade>
-                    <name>Inner25</name>
-                    <branch_length>4.444817115209883E-05</branch_length>
-                    <clade>
-                      <name>Portuguese Sheepdog</name>
-                      <branch_length>0.0002861204330103838</branch_length>
-                    </clade>
-                    <clade>
-                      <name>Portuguese Warren dog, small size, weired hair</name>
-                      <branch_length>7.240959387940795E-05</branch_length>
-                    </clade>
-                  </clade>
+                  <name>Inner21</name>
+                  <branch_length>3.9564348670462093E-05</branch_length>
                   <clade>
                     <name>Inner20</name>
-                    <branch_length>0.00016469434453352975</branch_length>
+                    <branch_length>3.735336163398448E-05</branch_length>
+                    <clade>
+                      <name>Shar Pei</name>
+                      <branch_length>0.0007161140966773082</branch_length>
+                    </clade>
+                    <clade>
+                      <name>Inner16</name>
+                      <branch_length>0.00011298659050522418</branch_length>
+                      <clade>
+                        <name>Inner11</name>
+                        <branch_length>0.0002788228588872436</branch_length>
+                        <clade>
+                          <name>Castro Laboreiro Watchdog</name>
+                          <branch_length>0.00031624802595077537</branch_length>
+                        </clade>
+                        <clade>
+                          <name>Mastiff</name>
+                          <branch_length>0.0001617920099022803</branch_length>
+                        </clade>
+                      </clade>
+                      <clade>
+                        <name>Inner14</name>
+                        <branch_length>0.00018427842584534858</branch_length>
+                        <clade>
+                          <name>Dachshund</name>
+                          <branch_length>0.0004307962354347214</branch_length>
+                        </clade>
+                        <clade>
+                          <name>Inner13</name>
+                          <branch_length>4.724380041827873E-05</branch_length>
+                          <clade>
+                            <name>Algarve Barrocal Dog</name>
+                            <branch_length>0.0014043144262370422</branch_length>
+                          </clade>
+                          <clade>
+                            <name>EpagneulBreton</name>
+                            <branch_length>0.0015236807933625906</branch_length>
+                          </clade>
+                        </clade>
+                      </clade>
+                    </clade>
+                  </clade>
+                  <clade>
+                    <name>Inner19</name>
+                    <branch_length>5.134547314342494E-05</branch_length>
+                    <clade>
+                      <name>Inner17</name>
+                      <branch_length>9.500112040631848E-05</branch_length>
+                      <clade>
+                        <name>Indian local</name>
+                        <branch_length>3.165996686314246E-05</branch_length>
+                      </clade>
+                      <clade>
+                        <name>Mixed breed</name>
+                        <branch_length>0.0001476050465817534</branch_length>
+                      </clade>
+                    </clade>
                     <clade>
                       <name>Inner15</name>
-                      <branch_length>0.0001578396993379988</branch_length>
+                      <branch_length>0.0001384168658500286</branch_length>
                       <clade>
-                        <name>German Shepherd</name>
-                        <branch_length>0.0</branch_length>
+                        <name>Sloughi</name>
+                        <branch_length>0.000789147308534998</branch_length>
                       </clade>
                       <clade>
-                        <name>German shepherd</name>
-                        <branch_length>0.0</branch_length>
+                        <name>Inner10</name>
+                        <branch_length>0.0003051162110347484</branch_length>
+                        <clade>
+                          <name>Inner4</name>
+                          <branch_length>0.0003088200447132636</branch_length>
+                          <clade>
+                            <name>Inner2</name>
+                            <branch_length>0.0003907550471637688</branch_length>
+                            <clade>
+                              <name>Camp dog</name>
+                              <branch_length>0.0003585300268897332</branch_length>
+                            </clade>
+                            <clade>
+                              <name>German Shepherd cross</name>
+                              <branch_length>0.0002987750224081073</branch_length>
+                            </clade>
+                          </clade>
+                          <clade>
+                            <name>Aidi</name>
+                            <branch_length>0.0008641000469503358</branch_length>
+                          </clade>
+                        </clade>
+                        <clade>
+                          <name>Inner9</name>
+                          <branch_length>2.730185549591616E-05</branch_length>
+                          <clade>
+                            <name>Estrela Mountain dog</name>
+                            <branch_length>0.0005516133851210073</branch_length>
+                          </clade>
+                          <clade>
+                            <name>Inner5</name>
+                            <branch_length>0.0002550791753809131</branch_length>
+                            <clade>
+                              <name>Terrier cross</name>
+                              <branch_length>0.0004055431554157592</branch_length>
+                            </clade>
+                            <clade>
+                              <name>Gambian local</name>
+                              <branch_length>0.0010285769521432967</branch_length>
+                            </clade>
+                          </clade>
+                        </clade>
                       </clade>
-                    </clade>
-                    <clade>
-                      <name>Black Retriever</name>
-                      <branch_length>0.00020069032755179293</branch_length>
                     </clade>
                   </clade>
                 </clade>
+              </clade>
+              <clade>
+                <name>Inner26</name>
+                <branch_length>5.397260436755126E-05</branch_length>
                 <clade>
                   <name>Inner24</name>
-                  <branch_length>0.00017668680568760166</branch_length>
+                  <branch_length>5.433252510855571E-05</branch_length>
                   <clade>
-                    <name>Inner23</name>
-                    <branch_length>4.2727162384235886E-05</branch_length>
-                    <clade>
-                      <name>Inner21</name>
-                      <branch_length>5.3153652057793405E-05</branch_length>
-                      <clade>
-                        <name>Inner17</name>
-                        <branch_length>0.00010306700859806538</branch_length>
-                        <clade>
-                          <name>Indian local</name>
-                          <branch_length>3.0980932721305686E-05</branch_length>
-                        </clade>
-                        <clade>
-                          <name>Mixed breed</name>
-                          <branch_length>0.00014828408072359018</branch_length>
-                        </clade>
-                      </clade>
-                      <clade>
-                        <name>Inner16</name>
-                        <branch_length>0.0001303509776582817</branch_length>
-                        <clade>
-                          <name>Sloughi</name>
-                          <branch_length>0.0007903330042477941</branch_length>
-                        </clade>
-                        <clade>
-                          <name>Inner10</name>
-                          <branch_length>0.0003039305153219523</branch_length>
-                          <clade>
-                            <name>Inner4</name>
-                            <branch_length>0.0003085624800387739</branch_length>
-                            <clade>
-                              <name>Aidi</name>
-                              <branch_length>0.0008641000469503358</branch_length>
-                            </clade>
-                            <clade>
-                              <name>Inner2</name>
-                              <branch_length>0.0003907550471637688</branch_length>
-                              <clade>
-                                <name>Camp dog</name>
-                                <branch_length>0.0003585300268897332</branch_length>
-                              </clade>
-                              <clade>
-                                <name>German Shepherd cross</name>
-                                <branch_length>0.0002987750224081073</branch_length>
-                              </clade>
-                            </clade>
-                          </clade>
-                          <clade>
-                            <name>Inner9</name>
-                            <branch_length>2.7559420170405872E-05</branch_length>
-                            <clade>
-                              <name>Inner5</name>
-                              <branch_length>0.00025557713375159324</branch_length>
-                              <clade>
-                                <name>Gambian local</name>
-                                <branch_length>0.0010294557022092032</branch_length>
-                              </clade>
-                              <clade>
-                                <name>Terrier cross</name>
-                                <branch_length>0.00040466440534985275</branch_length>
-                              </clade>
-                            </clade>
-                            <clade>
-                              <name>Estrela Mountain dog</name>
-                              <branch_length>0.0005511154267503272</branch_length>
-                            </clade>
-                          </clade>
-                        </clade>
-                      </clade>
-                    </clade>
-                    <clade>
-                      <name>Inner22</name>
-                      <branch_length>3.554518271961602E-05</branch_length>
-                      <clade>
-                        <name>Shar Pei</name>
-                        <branch_length>0.0007203965579359913</branch_length>
-                      </clade>
-                      <clade>
-                        <name>Inner18</name>
-                        <branch_length>0.00010870412924654104</branch_length>
-                        <clade>
-                          <name>Inner14</name>
-                          <branch_length>0.00019115821560175832</branch_length>
-                          <clade>
-                            <name>Dachshund</name>
-                            <branch_length>0.00043079623543472147</branch_length>
-                          </clade>
-                          <clade>
-                            <name>Inner13</name>
-                            <branch_length>4.7243800418278676E-05</branch_length>
-                            <clade>
-                              <name>Algarve Barrocal Dog</name>
-                              <branch_length>0.0014043144262370427</branch_length>
-                            </clade>
-                            <clade>
-                              <name>EpagneulBreton</name>
-                              <branch_length>0.0015236807933625902</branch_length>
-                            </clade>
-                          </clade>
-                        </clade>
-                        <clade>
-                          <name>Inner11</name>
-                          <branch_length>0.00027194306913083384</branch_length>
-                          <clade>
-                            <name>Castro Laboreiro Watchdog</name>
-                            <branch_length>0.0003162480259507733</branch_length>
-                          </clade>
-                          <clade>
-                            <name>Mastiff</name>
-                            <branch_length>0.00016179200990228235</branch_length>
-                          </clade>
-                        </clade>
-                      </clade>
-                    </clade>
+                    <name>German shepherd</name>
+                    <branch_length>0.00018416679115628896</branch_length>
                   </clade>
                   <clade>
-                    <name>Inner12</name>
-                    <branch_length>0.00038034293770540934</branch_length>
+                    <name>Inner22</name>
+                    <branch_length>0.00011460823125187083</branch_length>
                     <clade>
-                      <name>boxer</name>
-                      <branch_length>0.0007997073111354457</branch_length>
+                      <name>Black Retriever</name>
+                      <branch_length>0.00019991563999369118</branch_length>
                     </clade>
                     <clade>
-                      <name>Inner6</name>
-                      <branch_length>0.0003655152762562248</branch_length>
+                      <name>German Shepherd</name>
+                      <branch_length>0.00015861438689610056</branch_length>
+                    </clade>
+                  </clade>
+                </clade>
+                <clade>
+                  <name>Inner25</name>
+                  <branch_length>5.0238732734230823E-05</branch_length>
+                  <clade>
+                    <name>Portuguese Sheepdog</name>
+                    <branch_length>0.0002914557012676694</branch_length>
+                  </clade>
+                  <clade>
+                    <name>Portuguese Warren dog, small size, weired hair</name>
+                    <branch_length>6.707432562212234E-05</branch_length>
+                  </clade>
+                </clade>
+              </clade>
+            </clade>
+            <clade>
+              <name>Inner33</name>
+              <branch_length>7.528897146697716E-05</branch_length>
+              <clade>
+                <name>Staffordshire Bull Terrier</name>
+                <branch_length>0.0003213582125784142</branch_length>
+              </clade>
+              <clade>
+                <name>Inner32</name>
+                <branch_length>3.7171814311308176E-05</branch_length>
+                <clade>
+                  <name>Pit bull</name>
+                  <branch_length>0.0002261820286824079</branch_length>
+                </clade>
+                <clade>
+                  <name>Inner31</name>
+                  <branch_length>1.2837989244119915E-05</branch_length>
+                  <clade>
+                    <name>Canis Panther</name>
+                    <branch_length>7.469375560218631E-06</branch_length>
+                  </clade>
+                  <clade>
+                    <name>Inner30</name>
+                    <branch_length>5.2285628921413326E-05</branch_length>
+                    <clade>
+                      <name>Cocker Spaniel</name>
+                      <branch_length>0.0001792650134448788</branch_length>
+                    </clade>
+                    <clade>
+                      <name>Inner29</name>
+                      <branch_length>1.7076184216646695E-17</branch_length>
                       <clade>
-                        <name>Husky</name>
-                        <branch_length>0.0002042761043358713</branch_length>
+                        <name>Great Dane cross</name>
+                        <branch_length>5.975500448162572E-05</branch_length>
                       </clade>
                       <clade>
-                        <name>Inner3</name>
-                        <branch_length>0.00019907017591511665</branch_length>
-                        <clade>
-                          <name>Inner1</name>
-                          <branch_length>0.0003029246754971018</branch_length>
-                          <clade>
-                            <name>Miniature Schnauzer</name>
-                            <branch_length>0.0008216313116223633</branch_length>
-                          </clade>
-                          <clade>
-                            <name>Azores Cattle dog</name>
-                            <branch_length>0.0006124887959366926</branch_length>
-                          </clade>
-                        </clade>
-                        <clade>
-                          <name>Portuguese Warren dog, small size, smooth hair</name>
-                          <branch_length>5.560535139263441E-05</branch_length>
-                        </clade>
+                        <name>Rottweiler cross</name>
+                        <branch_length>6.2341624917916505E-18</branch_length>
                       </clade>
                     </clade>
                   </clade>
                 </clade>
               </clade>
-            </clade>
-          </clade>
-          <clade>
-            <name>Inner19</name>
-            <branch_length>0.00019199601944527633</branch_length>
-            <clade>
-              <name>Inner8</name>
-              <branch_length>0.000281175306244378</branch_length>
-              <clade>
-                <name>Inner7</name>
-                <branch_length>0.00018709581040318355</branch_length>
-                <clade>
-                  <name>mystery_sequence</name>
-                  <branch_length>0.0012021026292201897</branch_length>
-                </clade>
-                <clade>
-                  <name>English Springer Spaniel</name>
-                  <branch_length>0.000590547505228547</branch_length>
-                </clade>
-              </clade>
-              <clade>
-                <name>Irish Soft Coated Wheaten Terrier</name>
-                <branch_length>0.0007391067590620563</branch_length>
-              </clade>
-            </clade>
-            <clade>
-              <name>Brazilian Terrier</name>
-              <branch_length>0.00046576224977591045</branch_length>
             </clade>
           </clade>
         </clade>
         <clade>
-          <name>Inner27</name>
-          <branch_length>4.832481746714376E-05</branch_length>
+          <name>Inner18</name>
+          <branch_length>0.00019205437394184043</branch_length>
           <clade>
-            <name>Portuguese Pointing Dog-long hair</name>
-            <branch_length>0.0</branch_length>
+            <name>Brazilian Terrier</name>
+            <branch_length>0.0004699037517606316</branch_length>
           </clade>
           <clade>
-            <name>Portuguese Pointing Dog</name>
-            <branch_length>0.0</branch_length>
+            <name>Inner8</name>
+            <branch_length>0.00027703380425965685</branch_length>
+            <clade>
+              <name>Inner7</name>
+              <branch_length>0.0001875777056006161</branch_length>
+              <clade>
+                <name>mystery_sequence</name>
+                <branch_length>0.0012030363011652152</branch_length>
+              </clade>
+              <clade>
+                <name>English Springer Spaniel</name>
+                <branch_length>0.0005896138332835215</branch_length>
+              </clade>
+            </clade>
+            <clade>
+              <name>Irish Soft Coated Wheaten Terrier</name>
+              <branch_length>0.0007386248638646237</branch_length>
+            </clade>
           </clade>
         </clade>
       </clade>
       <clade>
-        <name>English Pointer</name>
-        <branch_length>0.0001846700986891418</branch_length>
+        <name>Inner37</name>
+        <branch_length>1.1430187014488182E-05</branch_length>
+        <clade>
+          <name>English Pointer</name>
+          <branch_length>0.00018467009868914177</branch_length>
+        </clade>
+        <clade>
+          <name>Portuguese Warren dog, medium size, weired hair</name>
+          <branch_length>0.00011410492371901801</branch_length>
+        </clade>
       </clade>
       <clade>
-        <name>Portuguese Warren dog, medium size, weired hair</name>
-        <branch_length>0.00011410492371901803</branch_length>
+        <name>Inner27</name>
+        <branch_length>4.8324817467143775E-05</branch_length>
+        <clade>
+          <name>Portuguese Pointing Dog-long hair</name>
+          <branch_length>0.0</branch_length>
+        </clade>
+        <clade>
+          <name>Portuguese Pointing Dog</name>
+          <branch_length>0.0</branch_length>
+        </clade>
       </clade>
     </clade>
   </phylogeny>
