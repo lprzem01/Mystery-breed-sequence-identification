@@ -13,6 +13,7 @@ If your README is very long, you might want to add a table of contents to make i
 How to Install and Run the Project
 If you are working on a project that a user needs to install or run locally in a machine like a "POS", you should include the steps required to install your project and also the required dependencies if any.
 Provide a step-by-step description of how to get the development environment set and running.
+pip freeze > requirements.txt
 
 How to Use the Project
 Provide instructions and examples so users/contributors can use the project. This will make it easy for them in case they encounter a problem – they will always have a place to reference what is expected.
