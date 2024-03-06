@@ -1,4 +1,4 @@
-What to Include in your README
+
 ## Project's Title
 <p>DNA identification service of the closest sequence in the database to the provided sequence.</p>
 
