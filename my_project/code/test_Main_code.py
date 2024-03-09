@@ -2,7 +2,8 @@ import pytest
 from Bio import SeqIO
 import os
 
-from my_project.code import Main_code
+import Main_code
+
 
 #complete these variables with the input files directory
 dog_breeds = r"/workspaces/Coursework/my_project/data/dog_breeds.fa"

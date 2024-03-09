@@ -12,12 +12,14 @@ import scipy as sp
 
 
 # %%
-#complete these variables with the input files directory 
+#set current directory to my_project
 
-dog_breeds = r"my_project/data/dog_breeds.fa"
-mystery_breed = r"my_project/data/mystery.fa"
-output = r"my_project/results"
-ind_breeds = r"my_project/results/individual_breed_sequences"
+#complete these variables with the input files directory
+dog_breeds = r"/workspaces/Coursework/my_project/data/dog_breeds.fa"
+mystery_breed = r"/workspaces/Coursework/my_project/data/mystery.fa"
+output = r"/workspaces/Coursework/my_project/results"
+ind_breeds = r"/workspaces/Coursework/my_project/results/individual_breed_sequences"
+
 
 # %%
 class Breed():
@@ -35,7 +37,7 @@ class Breed():
 
 # %%
 #open the fasta file and save the sequence breed and sequence name in a Breed Class to be accessed later
-def read_fasta(filename = dog_breeds, format = "fasta"):
+def initialise_Breed(filename = dog_breeds, format = "fasta"):
     #parse through the dog_breeds file
     for record in SeqIO.parse(filename, format):
         #get the description of each sequence to find out what breed it is 
@@ -48,17 +50,17 @@ def read_fasta(filename = dog_breeds, format = "fasta"):
                 #intialises an object of class Breed which contains the sequence, breed name and the full record 
                 record.name = Breed(record.seq, breed_name, record)
 #call the function
-read_fasta()
+initialise_Breed()
 
 def create_output(content, filename:str, filetype:str):
         """creates a file in the results folder with the content provided in the the correct format """
         #create an empty file by openening it in a write format 
         filepath = f"{output}/{filename}"
-        with open(filename, "w"):
+        with open(filename, "w") as f:
                 if filetype == "fasta":
                         SeqIO.write(content, filepath, filetype) 
                 elif filetype == "txt":
-                        pass
+                        f.write(content)
 
 
 # %%
@@ -74,38 +76,41 @@ def unique_breeds():
 
 def breed_sequences(directory = ind_breeds):
     """write a fasta file containing all sequences that belong to the same breed """
-    #set up directory where files will be created
-    os.chdir(ind_breeds) 
     for breed in unique_breeds():
         #creates a temporary variable corresponding to each individual dog breed 
         temp = breed
         #create a directory for filename
         filename = f"{directory}/{breed}"
         #itterate throough all instances of the class Breed
+        sequences = []
         for key in Breed.all_instances: 
             #check if the breedd is the same as the current breed in the loop stored in the temp variable 
             if key.breed == temp:
-                #adds the sequence to a file with the name of the breed as a filename
-                SeqIO.write(key.fasta, filename, "fasta") 
+                sequences.append(key.fasta)
+                #adds the sequences to a file with the name of the breed as a filename
+        SeqIO.write(sequences, filename, "fasta") 
 
 breed_sequences()
 
 # %%
+
 def concensus_seq(filename):
     """Function that takes in a file containing a number of sequences and returns a concensus sequence"""
+    os.chdir(ind_breeds) 
     #align all the sequences in each file
     alignments = AlignIO.parse(filename, "fasta") 
     #assign filename to varible recordname which will be used to create a name for this record 
-    recordname = f"{filename}" 
+    recordname = f"{filename}"
     for alignment in alignments: 
         #get summary info of each alignment to create a concensus 
         summary = SummaryInfo(alignment) 
-        #create a concensus of each alignmernt 
+        #create a concensus of each alignment 
         consensus = summary.dumb_consensus() 
         #create a fasta format sequence using the consensus sequence and recordname
         seq_record = SeqRecord(Seq(consensus), id=recordname) 
         #add each concensus seq to a list 
     return seq_record
+
 
 def concensus_file(directory=output):
     """create a consensus sequence for each breed and store it in a list"""
@@ -119,41 +124,64 @@ def concensus_file(directory=output):
     #add mystery sequence to the concensus file list 
     consensus_sequences.append(SeqRecord(unknown_sequence.seq, id="mystery_sequence"))
     return consensus_sequences
+
 #store concensus sequences in a results folder in a file called concensus_sequences
-create_output(concensus_file(output), "concensus_sequences", "fasta" )
+create_output(concensus_file(), "concensus_sequences", "fasta" )
 
 
 # %%
-def alignment(n, mystery_sequence = mystery_breed, breed_seqs = "results/concensus_sequences"):
-    """Takes in index number of the alignment score (1 being the top scoring sequence), an unknown sequence (predifined) 
-    and compares it to the database(predifined) to return the nth alignment.
-    n is the only required paramater, mystery_sequence and breed_seeqs can be substituted with a different dataset otherwise 
-    defoult database will be used"""
-    #set a variable to store scores of each alignment
-    all_scores = []
-    #open the target sequence file and save its sequence in the unknown_sequence variable 
-    for record in SeqIO.parse(mystery_sequence, "fasta"): 
-        unknown_sequence = record.seq
-    #Create a pairwise alignment varaible 
+def simple_alignment(seq1,seq2):
+    """align two sequences given as parameters and return alignment score and alignment"""
     aligner = Bio.Align.PairwiseAligner() 
-    #itterate through the sequences saved in the breed concensus sequences file 
-    for record in breed_seqs: 
-        #find the score of each alignment and save it in the all_scores list 
-        score = aligner.score(record.seq, unknown_sequence) 
-        all_scores.append(score)
-    #sort the alignment scores from highest to lowest  
-    all_scores.sort(reverse=True)
-    #get the n'th alignment score 
-    target_score = all_scores[n]
-    #itterate through sequences in the breed_seqs again 
-    for record in breed_seqs:
-        #create an alignment between the mystery sequence and the brred conceensus sequence only if the alignment has the target score
-        if aligner.score(record.seq, unknown_sequence) == target_score:
-            #store the alignemnt
-            alignment = aligner.align(record.seq, unknown_sequence)
-            #store and return information about the nth alignemnt [breed name, sequence of the breed, alignment of the breed and target sequence and the score of the alignemnt]
-            breed_score = (record.id).replace("_consensus", ""), record.seq, alignment[0], target_score
-    return breed_score
+    score = aligner.score(seq1, seq2)
+    alignment = aligner.align(seq1, seq2)
+    return score, alignment
+
+def read_fasta(filename):
+    """function which reads a fasta file and returns a list of sequiences found in the file"""
+    sequences = []
+    for record in SeqIO.parse(filename, "fasta"): 
+        sequences.append(record.seq)
+    return(sequences)
+
+#get concensus sequences
+consensus_file = f"{output}/concensus_sequences"
+consensus_sequences = read_fasta(consensus_file)
+#get mystery sequences
+mystery_sequence = read_fasta(mystery_breed)
+
+
+
+# %%
+print(consensus_sequences)
+print(mystery_sequence[0])
+print(simple_alignment(consensus_sequences[0],mystery_sequence[0])[0])
+
+# %%
+#align_concensus sequences with the mystery sequence
+def align_consensus(sequences_list=consensus_sequences, unknown_sequence = mystery_sequence[0]):
+    scores_list = []
+    for sequence in sequences_list:
+        score = (simple_alignment(sequence, unknown_sequence)[0])
+        scores_list.append(score)
+    max_score = max(scores_list)
+    for sequence in sequences_list:
+        score = (simple_alignment(sequence, unknown_sequence)[0])
+        if score == max_score:
+            return (simple_alignment(sequence, unknown_sequence)[1])
+
+print(align_consensus())
+
+# %%
+def top_alignment(alignments_list = align_consensus()):
+    scores = []
+    for score, alignment in zip(alignments_list[0], alignments_list[1]):
+        scores.append(score)
+        if score == max(scores):
+            return alignment
+
+# %% [markdown]
+# TBC: need to output breed_score = (record.id).replace("_consensus", ""), record.seq, target_alignment, target_score
 
 # %%
 def percentage_similarity(aln):
@@ -171,13 +199,14 @@ def percentage_similarity(aln):
     #return percentage to 3dp
     return  round(percentage,3) 
 
-# %%
-#calculate percentage similarity of the top scoring sequence 
-top_percentage = percentage_similarity(((alignment(0))[2]))
-#set variable to hold the top alignment and its details 
-full_top_alignment = alignment(0)
-#set a variable to just hold the top alignemnt without the rest of the details 
-top_alignment = full_top_alignment[2]
+# %% [markdown]
+# 
+# #calculate percentage similarity of the top scoring sequence 
+# top_percentage = percentage_similarity(((alignment(0))[2]))
+# #set variable to hold the top alignment and its details 
+# full_top_alignment = alignment(0)
+# #set a variable to just hold the top alignemnt without the rest of the details 
+# top_alignment = full_top_alignment[2]
 
 # %%
 #create a directory for the top alignment file 
@@ -187,23 +216,25 @@ with open(filename, "w"):
         Bio.Align.write(top_alignment, filename, "clustal")
 
 
-# %%
-#get results aka the breed, its sequence and percentage similarity 
-results = "The breed most similar to the mustery DNA file is the", full_top_alignment[0], "its percent identity is", top_percentage, "% and the breeds consensus sequence is:", full_top_alignment[1],"the alignment of the mystery dog breed and", full_top_alignment[0], "is displayed here\n", full_top_alignment[2]
+# %% [markdown]
+# #get results aka the breed, its sequence and percentage similarity 
+# results = "The breed most similar to the mustery DNA file is the", full_top_alignment[0], "its percent identity is", top_percentage, "% and the breeds consensus sequence is:", full_top_alignment[1],"the alignment of the mystery dog breed and", full_top_alignment[0], "is displayed here\n", full_top_alignment[2]
+# 
+# #create a string representing thr results that can be written to the results file 
+# results_str = str()
+# for key in results:
+#     results_str += str(key) 
 
-#create a string representing thr results that can be written to the results file 
-results_str = str()
-for key in results:
-    results_str += str(key) 
+# %% [markdown]
+# #create a directory and filename for the details of the top alignment
+# filename2 = f"{output}/top_alignment_details"  
+# #create a file to store details about the  top alignment as a txt file 
+# with open(filename2, "w") as file:
+#         file.write(results_str)
 
 # %%
-#create a directory and filename for the details of the top alignment
-filename2 = f"{output}/top_alignment_details"  
-#create a file to store details about the  top alignment as a txt file 
-with open(filename2, "w") as file:
-        file.write(results_str)
+consensus_sequences = concensus_file()
 
-# %%
 #create a multisequence alignment between unknownn dna and all concensus sequences
 # Create a MultipleSeqAlignment object
 MSA_alignment = Bio.Align.MultipleSeqAlignment(consensus_sequences)
