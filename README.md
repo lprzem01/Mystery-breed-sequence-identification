@@ -1,4 +1,5 @@
-
+![alt text]
+(https://github.com/lprzem01/Coursework/blob/main/my_project/doc/Process%20map.png)
 ## Project's Title
 <p>DNA identification service of the closest sequence in the database to the provided sequence.</p>
 
