@@ -24,4 +24,5 @@ Also if your project will require authentication like passwords or usernames, th
 ## Credits
 <p> If you worked on the project as a team or an organization, list your collaborators/team members. You should also include links to their GitHub profiles and social media too.
 Also, if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
-This is just a way to show your appreciation and also to help others get a first hand copy of the project. </p>
+This is just a way to show your appreciation and also to help others get a first hand copy of the project. 
+https://github.com/biotite-dev/biotite/blob/3b02d7e8ced182c082e9ba5192f50f79a0bdd9c1/doc/examples/scripts/sequence/local_alignment_statistics.py#L199</p>
