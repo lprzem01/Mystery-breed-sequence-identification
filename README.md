@@ -13,10 +13,12 @@
 #### Visual output improvements
 <p> Create a heatmap representing the MSA for better visualisation of the alignment </p>
 <p> Output a scrollable best scoring sequence alignment </p>
-#### Statistical significance improvements
+
+#### Statistical significance improvements 
 <p> Output e scores not just probability scores </p>
 <p> Bigger sample size to generate better estimates for pdf </p>
 <p> Calculate base content based on whole database rather than one sequence </p>
+
 #### General improvements
 <p> Improve speed of the code </p>
 <p> More comprehensive testing </p>
