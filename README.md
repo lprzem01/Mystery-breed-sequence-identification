@@ -3,23 +3,29 @@
 <p>DNA identification service of the closest sequence in the database to the provided sequence.</p>
 
 ## Project Description
-<p>The code in this file can be used to identify a dog’s breed based on DNA sequence.
+<p> The code in this file analyses a database to carry out 3 functions</p>
+    <p> 1. Find the most closely aligned dog breed to the unknown dog breed sequence -> outputs a txt file with alignment details and an alignment image </p>
+    <p> 2. Finds the proabbility of each alignment occuring by chance -> outputs a database of alignment probability of each breed </p>
+    <p> 3. Creates a phylogentic tree of all the breeds in the database including the unknown breed -> saved as an image file </p>
+### Limitations/next steps  
+•	Visual output improvements
+o	Create a heatmap representing the MSA for better visualisation of the alignment
+o	Output a scrollable best scoring sequence alignment
+•	Statistical significance improvements
+o	Output e scores not just probability scores
+o	Bigger sample size to generate better estimates for pdf
+o	Calculate base content based on whole database rather than one sequence
+•	General improvements
+o	Improve speed of the code
+o	More comprehensive testing 
+
+  The code in this file can be used to identify a dog’s breed based on DNA sequence.
 It takes a sequence as input and compares it to known breeds in a database to identify the most probable breed and the percentage of confidence based on alignment.<
 •	Why you used the technologies you used,
 •	Some of the challenges you faced and features you hope to implement in the future.</p>
 
-## Table of Contents (Optional)
-<p>If your README is very long, you might want to add a table of contents to make it easy for users to navigate to different sections easily. It will make it easier for readers to move around the project with ease.</p>
-
 ## How to Install and Run the Project
-<p>If you are working on a project that a user needs to install or run locally in a machine like a "POS", you should include the steps required to install your project and also the required dependencies if any.
-Provide a step-by-step description of how to get the development environment set and running.
-pip freeze > requirements.txt </p>
-
-## How to Use the Project
-<p> Provide instructions and examples so users/contributors can use the project. This will make it easy for them in case they encounter a problem – they will always have a place to reference what is expected.
-You can also make use of visual aids by including materials like screenshots to show examples of the running project and also the structure and design principles used in your project.
-Also if your project will require authentication like passwords or usernames, this is a good section to include the credentials. </p>
+<p> To run this program download the my project folder from this repository and configure your enviroment using the requiremnts.txt file found in the doc folder. Adapt the dog_breeds.fa and mystery.fa files to include your database and unknown sequence respectivelly. Alternatively use the data provided. Run the Main code to populate the results folder with all graphs and txt files outlining the results of the comparassion. </p>
 
 ## Credits
 <p> If you worked on the project as a team or an organization, list your collaborators/team members. You should also include links to their GitHub profiles and social media too.
