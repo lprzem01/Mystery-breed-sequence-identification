@@ -2,7 +2,6 @@
 # import all relevant modules
 
 # %%
-
 from Bio import SeqIO, AlignIO, Phylo
 from Bio.SeqRecord import SeqRecord
 import Bio.Align
@@ -16,6 +15,8 @@ from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstruct
 from Bio import Phylo
 from pymsaviz import MsaViz
 import time
+from biotite import sequence as seq
+
 
 # %% [markdown]
 # Setup the directory
@@ -24,10 +25,11 @@ import time
 #set current directory to my_project
 
 #complete these variables with the input files directory
-dog_breeds = r"C:\Users\User\Downloads\Coursework-main\Coursework-main\my_project\data\dog_breeds.fa"
-mystery_breed = r"C:\Users\User\Downloads\Coursework-main\Coursework-main\my_project\data\mystery.fa"
-output = r"C:\Users\User\Downloads\Coursework-main\Coursework-main\my_project\results"
-ind_breeds = r"C:\Users\User\Downloads\Coursework-main\Coursework-main\my_project\results\individual_breed_sequences"
+dog_breeds = r"/workspaces/Coursework/my_project/data/dog_breeds.fa"
+mystery_breed = r"/workspaces/Coursework/my_project/data/mystery.fa"
+output = r"/workspaces/Coursework/my_project/results"
+ind_breeds = r"/workspaces/Coursework/my_project/results/individual_breed_sequences"
+all_alignments = r"/workspaces/Coursework/my_project/results/All_alignments"
 
 
 # %% [markdown]
@@ -152,14 +154,15 @@ def add_mystery_to_consensus():
     consensus_sequences = list(consensus_file())
     unknown_sequence = (read_fasta(mystery_breed))[0]
     #add mystery sequence to the consensus file list 
-    consensus_sequences.append(SeqRecord(unknown_sequence, id="mystery_sequence"))
+    consensus_sequences.append(SeqRecord(unknown_sequence, id="MYSTERY SEQUENCE"))
     return consensus_sequences
 
 #store consensus sequences in a results folder in a file called consensus_sequences
 create_output(consensus_file(), "consensus_sequences", "fasta" )
 #create output with the mystery sequence
 create_output(add_mystery_to_consensus(), "consensus_sequences_with_mystery", "fasta" )
-
+#hold the list as a value for easy acess later on 
+consensus_sequences_with_unknown = add_mystery_to_consensus()
 
 # %% [markdown]
 # Create a class to store consensus sequences 
@@ -284,9 +287,6 @@ mv.savefig(f"{output}/top_alignment_image")
 # - organise this into functions 
 
 # %%
-
-consensus_sequences_with_unknown = add_mystery_to_consensus()
-
 #create a multisequence alignment between unknownn dna and all consensus sequences
 # Create a MultipleSeqAlignment object
 MSA_alignment = Bio.Align.MultipleSeqAlignment(consensus_sequences_with_unknown)
@@ -306,7 +306,7 @@ breeds_tree = constructor.build_tree(MSA_alignment)
 # Save the tree to a new file 
 
 Phylo.write(breeds_tree, "breeds_tree.xml", "phyloxml")
-# Convert the tree to a different format (optional)
+# Convert the tree to a different format
 Phylo.convert("breeds_tree.xml", "phyloxml", "breeds_tree.nex", "nexus")
 
 breeds_nex = Phylo.read("breeds_tree.nex", "nexus")
@@ -323,42 +323,11 @@ fig = plt.figure(figsize=(20,15), dpi=100, frameon=False)
 matplotlib.rc("font", size=12)
 ax = plt.gca()
 Phylo.draw(breeds_nex, show_confidence=True, axes=ax, label_func=custom_label_func)
-
+plt.savefig(f"{output}/Phylogenetic_tree")
 
 # %% [markdown]
 # #find regions of the most diversity 
 # #define diversity as more than 10 sequences differing in that region 
-
-# %%
-#create a consensus sequence of all the dog breeds, which regions are essential to making a dog a dog?
-dog_consensus = consensus_seq(dog_breeds)
-#TASK TO DO = CREATE A FILE TO SAVE THIS INFO 
-
-#create a list storing the level of conservation at each possition in the multiple sequence alignemnt 
-def conseravtion_counter(consensus = dog_consensus, individuals = dog_breeds):
-    """This function takes dog consensus_sequence and a list of individual dog DNA as fasta files to return the conservation of each sequence in comparasion to overall consensus as a matrix"""
-    conservation = []
-    aligner = Bio.Align.PairwiseAligner()
-    for record in SeqIO.parse(individuals, "fasta"): 
-        #create a temporary list to store the conservation detail of each individual alignment 
-        temp = []
-        alignment = aligner.align(record.seq, consensus.seq) 
-        #itterate through every column of the alignment
-        for a in range(len(alignment[0][0])): 
-            #check if first and second sequence is the same at point a, a describing the column 
-            if alignment[0][0,a] == alignment[0][1,a]: 
-                temp.append(1)
-            else:
-                temp.append(0)
-        conservation.append(temp)
-    return conservation 
-
-print(conseravtion_counter())
-
-"""x = np.arange(len(conseravtion_counter()))
-
-plt.bar(x, conservation)
-plt.show()"""
 
 # %%
 #make a plot to represent the conservation levels of the MSA
@@ -366,6 +335,81 @@ plt.show()"""
 MSA_alignment = AlignIO.read(f"{output}/MSA_alignment", "clustal")  
 
 l = len(MSA_alignment[0]) 
-mv = MsaViz(read_alignment, format="clustal", start=1, end=l, wrap_length=100, show_consensus=True)
-mv.savefig(f"{output}/top_alignment_image")
+mv = MsaViz(MSA_alignment, format="clustal", start=50, end=150, wrap_length=100, show_consensus=True)
+mv.savefig(f"{output}/MSA_alignment_image")
 
+
+# %% [markdown]
+# Probability 
+
+# %%
+#convert X to " "
+def ambiguous_letter_deltion():
+    """this function removes all the instances of unknown nucleotides from the sequences in Breed_consensus class. Fasta format remains the same"""
+    for instance in  Breed_consensus.all_instances:
+            if instance == "AIDI":
+                  print(instance.sequence)
+            #sequence = (instance.sequence).replace("X", "")
+            #instance.self = Breed_consensus(sequence, instance.breed, instance.fasta)
+
+ambiguous_letter_deltion()
+
+
+
+# %%
+
+def alignment_scores(unknown_sequence = mystery_sequence[0]):
+    """uses the simple alignment function to create an alignment between unknown sequence and consenus sequences. Returns a list of breeds with the corresponding alignment score."""
+    #set up a list for all alignment score 
+    scores = {}
+    #itterate through the sequences in the database
+    for instance in Breed_consensus.all_instances:
+        #determine the score of each alignment
+        score = (simple_alignment(instance.sequence, unknown_sequence)[0])
+        scores[instance.breed] = score
+    return scores
+
+breed_scores = alignment_scores()
+
+def compute_e_value(scores = breed_scores):
+    """this function takes in a dictionary of alignment scores and breed names to return a dictionary of breed names and E_values in decadic logarithm form"""
+    e_values = {}
+    for breed, score in zip(scores.keys(), scores.values()):
+        e_value = biotite.log_evalue(score, l, l)
+        e_values[breed] = e_value
+    return e_values
+
+print(compute_e_value())
+#log_evalue(score, seq1_length, seq2_length)
+
+# %% [markdown]
+# Tests 
+
+# %%
+
+query = biotite.sequence.NucleotideSequence("CGACGGCGTCTACGAGTCAACATCATTC")
+hit = biotite.sequence.NucleotideSequence("GCTTTATTACGGGTTTACGAGTTCAACATCACGAAAACAA")
+example = biotite.sequence.io.fasta.get_sequence(mystery_breed)
+
+
+matrix = biotite.sequence.align.SubstitutionMatrix.std_nucleotide_matrix()
+gap_penalty = (-12, -2)
+alignment = biotite.sequence.align.align_optimal(query, hit, matrix, gap_penalty, local=True)[0]
+print(alignment)
+print(alignment.score)
+
+# Ensure deterministic results
+np.random.seed(0)
+# Sequences in database have a GC content of 0.6
+background = np.array([0.2, 0.3, 0.3, 0.2])
+estimator = biotite.sequence.align.EValueEstimator.from_samples(example.alphabet, matrix, gap_penalty, background, sample_length=100)
+
+
+log_e = estimator.log_evalue(alignment.score, len(query), 100 * len(hit))
+print(f"E-value = {10**log_e:.2e}")
+
+
+
+
+# %% [markdown]
+# 
