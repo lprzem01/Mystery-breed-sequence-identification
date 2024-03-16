@@ -1,7 +1,7 @@
-# %% [markdown]
+
 # import all relevant modules
 
-# %%
+
 from Bio import SeqIO, AlignIO, Phylo
 from Bio.SeqRecord import SeqRecord
 import Bio.Align
@@ -19,24 +19,24 @@ import random
 import pandas as pd
 import numpy as np 
 import pytest
-from functions import *
+from functions_copy import *
 
-# %% [markdown]
+
 # Setup the directory
 
-# %%
+
 #set up directories
 dog_breeds = r"../data/dog_breeds.fa"
 mystery_breed = r"../data/mystery.fa"
 output = r"../results"
 ind_breeds = r"../results/individual_breed_sequences"
 
-# %%
+
 #initialise the breed class with dog breeds data 
-initialise_Breed()
+initialise_Breed(dog_breeds)
 #use the breed_sequences function to create fasta file with all sequenes belonging to the same breed
 #these are stored in the individual_breed_sequences folder of the results folder
-breed_sequences()
+breed_sequences(ind_breeds)
 #store consensus sequences in a results folder in a file called consensus_sequences
 create_output(consensus_file(), f"{output}/consensus_sequences", "fasta" )
 #create output with the mystery sequence
@@ -44,10 +44,10 @@ create_output(add_mystery_to_consensus(), f"{output}/consensus_sequences_with_my
 #hold the list as a value for easy acess later on 
 consensus_sequences_with_unknown = add_mystery_to_consensus()
 
-# %% [markdown]
+
 # Create a class to store consensus sequences 
 
-# %%
+
 #get consensus sequences
 consensus_file = f"{output}/consensus_sequences"
 consensus_sequences = read_fasta(consensus_file)
@@ -56,10 +56,10 @@ mystery_sequence = read_fasta(mystery_breed)
 #initialise the Breed_consensus class with all the breed_consesnus files
 initialise_Breed_consensus(consensus_file)
 
-# %% [markdown]
+
 # Find the top alignment and store it in a file (this function is the one which takes the longest)
 
-# %%
+
 #align_consensus sequences with the mystery sequence
 top_alignment_details = align_consensus(consensus_sequences, mystery_sequence[0])
 top_alignment = top_alignment_details[1][0]
@@ -95,16 +95,16 @@ l = len(top_alignment[0])
 mv = MsaViz(read_alignment, format="clustal", start=1, end=l, wrap_length=100, show_consensus = True)
 mv.savefig(f"{output}/top_alignment_image")
 
-# %% [markdown]
+
 # Create a phylogenic tree describing the relationship between the breeds 
 
-# %%
+
 #define filepath for the fasta file storing all sequences
 consesnsus_with_mystery = f"{output}/consensus_sequences_with_mystery"
 #create a MSA from the sequences in consesnsus_with_mystery file
 MSA_alignment_result = MSA_alignment(consesnsus_with_mystery)
 
-# %%
+
 #build a phylogentic tree as a phyloxml file
 build_phylo_tree(MSA_alignment_result)
 
@@ -118,10 +118,10 @@ Phylo.draw(breeds_xml, show_confidence=True, axes=ax, label_func=custom_label_fu
 fig.savefig(f"{output}/Phylogenetic_tree")
 
 
-# %% [markdown]
+
 # Probability 
 
-# %%
+
 #set the sequence length to mirror the real database
 seq_len = 16729
 #set the size of the database to mirror the real one 
@@ -129,13 +129,11 @@ database_size = 100
 
 #generate a list of the base proportions to use in DNA generation
 proportion = base_content(mystery_sequence[0])
-print(proportion)
+
 
 #store the sequences generated in a variable     
 sequences = random_sequences(database_size, seq_len, proportion)
 
-
-# %%
 
 
 #store the alignment scores of the random sequences in a variable 
@@ -162,13 +160,13 @@ ax.legend(loc="upper left")
 fig.tight_layout()
 fig.savefig(f"{output}/probability_distribution")
 
-# %%
-#claculate alignment scores in the real database
-breed_scores = breed_alignment_scores(random_DNA(seq_len, proportion))
 
-# %%
+#claculate alignment scores in the real database
+breed_scores = breed_alignment_scores(mystery_sequence[0])
+
+
 #create a dataframe to strore the proability of the alignment with each breed consensus occuring by chance
 
-probability_df(breed_scores.keys(), breed_scores.values(), l, u)
+probability_df(breed_scores.keys(), breed_scores.values(), l, u, "probability of alignment occuring by chance")
 
 

@@ -8,7 +8,7 @@ from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstruct
 import random 
 import pandas as pd
 import numpy as np 
-
+import pytest
 
 dog_breeds = r"../data/dog_breeds.fa"
 mystery_breed = r"../data/mystery.fa"
@@ -32,7 +32,7 @@ def create_output(content, filename:str, filetype:str):
         with open(filename, "w") as f:
                 #if the filetype is fasta crete a file using SeQIO
                 if filetype == "fasta":
-                        SeqIO.write(content, filepath, filetype)
+                        SeqIO.write(content, filename, filetype)
                 #otherwise if the file is a txt write the content to the file 
                 elif filetype == "txt":
                         f.write(content)
@@ -62,7 +62,7 @@ class Breed():
         #store all initialised instances in the defined list
         Breed.all_instances.append(self) 
 
-def initialise_Breed(filename = dog_breeds, format = "fasta"):
+def initialise_Breed(filename, format = "fasta"):
     #parse through the dog_breeds file
     for record in SeqIO.parse(filename, format):
         #get the description of each sequence to find out what breed it is 
@@ -84,7 +84,7 @@ def unique_breeds():
         all_breeds.add(key.breed)
     return all_breeds
 
-def breed_sequences(directory = ind_breeds):
+def breed_sequences(directory):
     """Write a fasta file containing all sequences that belong to the same breed """
     for breed in unique_breeds():
         #creates a temporary variable corresponding to each individual dog breed 
@@ -115,7 +115,7 @@ def consensus_seq(filename):
         #add each consensus seq to a list 
     return seq_record
 
-def consensus_file(directory=output):
+def consensus_file():
     """create a consensus sequence for each breed and store it in a list"""
     #create a list to store the sequences
     consensus_sequences = [] 
@@ -170,7 +170,6 @@ def align_consensus(sequences_list, unknown_sequence):
     for key in Breed_consensus.all_instances:
         if key.sequence == current_sequence:
             top_breed = key.breed
-    print(current_best, current_best_alignment, top_breed)
     return current_best, current_best_alignment, top_breed
 
 def percentage_similarity(aln):
