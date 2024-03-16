@@ -5,20 +5,14 @@ from Bio.Align.AlignInfo import SummaryInfo
 from Bio.Seq import Seq
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
 
-import matplotlib
-import matplotlib.pyplot as plt
-from pymsaviz import MsaViz
-
-import os
-import time
 import random 
 import pandas as pd
 import numpy as np 
-import pytest
+
 
 dog_breeds = r"../data/dog_breeds.fa"
 mystery_breed = r"../data/mystery.fa"
-output = r"../results"
+output = r"../results" 
 ind_breeds = r"../results/individual_breed_sequences"
 
 def read_fasta(filename):
@@ -284,11 +278,11 @@ def breed_alignment_scores(unknown_sequence):
     return scores
 
 # The probability density function of the extreme value distribution
-def pdf(x, l, u):
+def pdf(x, l, u):  # noqa: E741
     t = np.exp(-l * (x - u))
     return l * t * np.exp(-t)
 
-def probability_df(breeds, scores, l, u):
+def probability_df(breeds, scores, l, u, df_name):  # noqa: E741
     """Function takes in a list of breeds and a list of alignmet scores acompanying 
     the breed as well as l and u constants used to calculate pdf and returns a 
     dataframe of breed names and alignment probabilities."""
@@ -304,9 +298,7 @@ def probability_df(breeds, scores, l, u):
     #sor the dataframe so that the least likelly to occur by chance alignment is at the top 
     df = df.sort_values("probability")
     #save the dataframe to a file  
-    df.to_csv(f'{output}/probability of alignment occuring by chance.csv')
+    df.to_csv(f'{output}/{df_name}')
     #funtion returns the dataframe create for testing and further modificaations purpouses
     return df
 
-if __name__ == '__main__':
-    pytest.main()
