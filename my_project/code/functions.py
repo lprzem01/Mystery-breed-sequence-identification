@@ -5,12 +5,6 @@ from Bio.Align.AlignInfo import SummaryInfo
 from Bio.Seq import Seq
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
 
-import matplotlib
-import matplotlib.pyplot as plt
-from pymsaviz import MsaViz
-
-import os
-import time
 import random 
 import pandas as pd
 import numpy as np 
@@ -35,10 +29,10 @@ def create_output(content, filename:str, filetype:str):
         correct format (either txt or fasta)"""
         #create an empty file by openening it in a write format 
         filepath = f"{output}/{filename}"
-        with open(filepath, "w") as f:
+        with open(filename, "w") as f:
                 #if the filetype is fasta crete a file using SeQIO
                 if filetype == "fasta":
-                        SeqIO.write(content, filepath, filetype)
+                        SeqIO.write(content, filename, filetype)
                 #otherwise if the file is a txt write the content to the file 
                 elif filetype == "txt":
                         f.write(content)

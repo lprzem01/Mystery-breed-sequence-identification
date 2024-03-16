@@ -129,12 +129,10 @@ database_size = 100
 
 #generate a list of the base proportions to use in DNA generation
 proportion = base_content(mystery_sequence[0])
-print(proportion)
+
 
 #store the sequences generated in a variable     
 sequences = random_sequences(database_size, seq_len, proportion)
-
-
 
 
 
@@ -164,7 +162,7 @@ fig.savefig(f"{output}/probability_distribution")
 
 
 #claculate alignment scores in the real database
-breed_scores = breed_alignment_scores(random_DNA(seq_len, proportion))
+breed_scores = breed_alignment_scores(mystery_sequence[0])
 
 
 #create a dataframe to strore the proability of the alignment with each breed consensus occuring by chance
