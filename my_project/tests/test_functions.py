@@ -48,7 +48,7 @@ def test_create_output_txt():
 
 
 def test_unique_breeds():
-    initialise_Breed()  # noqa: F405
+    initialise_Breed(dog_breeds)  # noqa: F405
     all_breeds = unique_breeds()  # noqa: F405
     assert "BOXER" in all_breeds
 
@@ -81,7 +81,7 @@ def test_consensus_seq():
 
 def test_consensus_file():
     """checks if all breeds are present in consensus file"""
-    initialise_Breed()  # noqa: F405
+    initialise_Breed(dog_breeds)  # noqa: F405
     consensus_file_breeds = []
     for key in consensus_file():  # noqa: F405
         consensus_file_breeds.append(key.id)
@@ -94,7 +94,7 @@ def test_consensus_file():
 def test_align_consensus():
     """test if the align_consensus function returns test sequence from a list of sequences which includes the test sequence"""
     #initialise both clases
-    initialise_Breed()  # noqa: F405
+    initialise_Breed(dog_breeds)  # noqa: F405
     consensus_file = f"{output}/consensus_sequences"
     initialise_Breed_consensus(consensus_file)  # noqa: F405
     #get the test sequence
@@ -125,7 +125,7 @@ def test_simple_alignment():
 
 
 def test_initialise_Breed():
-    initialise_Breed()  # noqa: F405
+    initialise_Breed(dog_breeds)  # noqa: F405
     for instance in Breed.all_instances:  # noqa: F405
         assert instance.breed.isupper() 
 
