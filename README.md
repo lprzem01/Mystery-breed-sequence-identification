@@ -24,7 +24,7 @@
 <p> More comprehensive testing </p>
 
 ## How to Install and Run the Project
-<p> To run this program download the my project folder from this repository and configure your enviroment using the requiremnts.txt file found in the doc folder. Adapt the dog_breeds.fa and mystery.fa files to include your database and unknown sequence respectivelly. Alternatively use the data provided. Run the Main code to populate the results folder with all graphs and txt files outlining the results of the comparassion. </p>
+<p> To run this program download the my project folder from this repository and configure your enviroment using the requiremnts.txt file found in the doc folder. Adapt the dog_breeds.fa and mystery.fa files to include your database and unknown sequence respectivelly. Alternatively use the data provided. Run the Main_code to populate the results folder with all graphs and txt files outlining the results of the comparassion. </p>
 
 ## Credits
 ### Most significant contributions to produce this project came from the following sources 
