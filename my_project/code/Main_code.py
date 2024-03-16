@@ -1,6 +1,7 @@
 
 # import all relevant modules
 
+
 from Bio import SeqIO, AlignIO, Phylo
 from Bio.SeqRecord import SeqRecord
 import Bio.Align
@@ -32,10 +33,10 @@ ind_breeds = r"../results/individual_breed_sequences"
 
 
 #initialise the breed class with dog breeds data 
-initialise_Breed()
+initialise_Breed(dog_breeds)
 #use the breed_sequences function to create fasta file with all sequenes belonging to the same breed
 #these are stored in the individual_breed_sequences folder of the results folder
-breed_sequences()
+breed_sequences(ind_breeds)
 #store consensus sequences in a results folder in a file called consensus_sequences
 create_output(consensus_file(), f"{output}/consensus_sequences", "fasta" )
 #create output with the mystery sequence
@@ -168,6 +169,6 @@ breed_scores = breed_alignment_scores(random_DNA(seq_len, proportion))
 
 #create a dataframe to strore the proability of the alignment with each breed consensus occuring by chance
 
-probability_df(breed_scores.keys(), breed_scores.values(), l, u)
+probability_df(breed_scores.keys(), breed_scores.values(), l, u, "probability of alignment occuring by chance")
 
 

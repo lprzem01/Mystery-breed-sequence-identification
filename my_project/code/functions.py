@@ -35,7 +35,7 @@ def create_output(content, filename:str, filetype:str):
         correct format (either txt or fasta)"""
         #create an empty file by openening it in a write format 
         filepath = f"{output}/{filename}"
-        with open(filename, "w") as f:
+        with open(filepath, "w") as f:
                 #if the filetype is fasta crete a file using SeQIO
                 if filetype == "fasta":
                         SeqIO.write(content, filepath, filetype)
@@ -68,7 +68,7 @@ class Breed():
         #store all initialised instances in the defined list
         Breed.all_instances.append(self) 
 
-def initialise_Breed(filename = dog_breeds, format = "fasta"):
+def initialise_Breed(filename, format = "fasta"):
     #parse through the dog_breeds file
     for record in SeqIO.parse(filename, format):
         #get the description of each sequence to find out what breed it is 
@@ -90,7 +90,7 @@ def unique_breeds():
         all_breeds.add(key.breed)
     return all_breeds
 
-def breed_sequences(directory = ind_breeds):
+def breed_sequences(directory):
     """Write a fasta file containing all sequences that belong to the same breed """
     for breed in unique_breeds():
         #creates a temporary variable corresponding to each individual dog breed 
@@ -121,7 +121,7 @@ def consensus_seq(filename):
         #add each consensus seq to a list 
     return seq_record
 
-def consensus_file(directory=output):
+def consensus_file():
     """create a consensus sequence for each breed and store it in a list"""
     #create a list to store the sequences
     consensus_sequences = [] 
@@ -176,7 +176,6 @@ def align_consensus(sequences_list, unknown_sequence):
     for key in Breed_consensus.all_instances:
         if key.sequence == current_sequence:
             top_breed = key.breed
-    print(current_best, current_best_alignment, top_breed)
     return current_best, current_best_alignment, top_breed
 
 def percentage_similarity(aln):
@@ -288,7 +287,7 @@ def pdf(x, l, u):
     t = np.exp(-l * (x - u))
     return l * t * np.exp(-t)
 
-def probability_df(breeds, scores, l, u):
+def probability_df(breeds, scores, l, u, df_name):
     """Function takes in a list of breeds and a list of alignmet scores acompanying 
     the breed as well as l and u constants used to calculate pdf and returns a 
     dataframe of breed names and alignment probabilities."""
@@ -304,9 +303,7 @@ def probability_df(breeds, scores, l, u):
     #sor the dataframe so that the least likelly to occur by chance alignment is at the top 
     df = df.sort_values("probability")
     #save the dataframe to a file  
-    df.to_csv(f'{output}/probability of alignment occuring by chance.csv')
+    df.to_csv(f'{output}/{df_name}')
     #funtion returns the dataframe create for testing and further modificaations purpouses
     return df
 
-if __name__ == '__main__':
-    pytest.main()
