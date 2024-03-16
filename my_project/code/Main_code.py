@@ -7,55 +7,67 @@ from Bio.SeqRecord import SeqRecord
 import Bio.Align
 from Bio.Align.AlignInfo import SummaryInfo
 from Bio.Seq import Seq
-import os
-import matplotlib.pyplot as plt
-import numpy as np 
-import scipy as sp
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-from Bio import Phylo
+
+import matplotlib
+import matplotlib.pyplot as plt
 from pymsaviz import MsaViz
+
+import os
 import time
-from biotite import sequence as seq
+import random 
+import pandas as pd
+import numpy as np 
 
 
 # %% [markdown]
 # Setup the directory
 
 # %%
-#set current directory to my_project
-
-#complete these variables with the input files directory
+#set up directories
 dog_breeds = r"/workspaces/Coursework/my_project/data/dog_breeds.fa"
 mystery_breed = r"/workspaces/Coursework/my_project/data/mystery.fa"
 output = r"/workspaces/Coursework/my_project/results"
 ind_breeds = r"/workspaces/Coursework/my_project/results/individual_breed_sequences"
 all_alignments = r"/workspaces/Coursework/my_project/results/All_alignments"
-
+consensus_file = r"/workspaces/Coursework/my_project/results/concensus_sequences"
+MSA_alignment = r"/workspaces/Coursework/my_project/results/MSA_alignment"
 
 # %% [markdown]
 # Set up basic functions 
 
 # %%
 def read_fasta(filename):
-    """function which reads a fasta file and returns a list of sequiences found in the file"""
+    """function which reads a fasta file and returns a list of sequences found in the file"""
     sequences = []
-    for record in SeqIO.parse(filename, "fasta"): 
+    #read the file
+    for record in SeqIO.parse(filename, "fasta"):
+        #add each sequence to the list
         sequences.append(record.seq)
     return(sequences)
 
 def create_output(content, filename:str, filetype:str):
-        """creates a file in the results folder with the content provided in the the correct format """
+        """creates a file in the results folder with the content provided in the the correct format (either txt or fasta)"""
         #create an empty file by openening it in a write format 
         filepath = f"{output}/{filename}"
         with open(filename, "w") as f:
+                #if the filetype is fasta crete a file using SeQIO
                 if filetype == "fasta":
-                        SeqIO.write(content, filepath, filetype) 
+                        SeqIO.write(content, filepath, filetype)
+                #otherwise if the file is a txt write the content to the file 
                 elif filetype == "txt":
                         f.write(content)
+                #if neither is true return an error message         
+                else:
+                    return "Provide a valid file type, this function only creates fasta files and txt files."
+                    
 def simple_alignment(seq1,seq2):
     """align two sequences given as parameters and return alignment score and alignment"""
-    aligner = Bio.Align.PairwiseAligner() 
+    #set up aligner
+    aligner = Bio.Align.PairwiseAligner()
+    #get alignemnt score 
     score = aligner.score(seq1, seq2)
+    #get alignemnt
     alignment = aligner.align(seq1, seq2)
     return score, alignment
 
@@ -76,7 +88,8 @@ class Breed():
         self.fasta = fasta
         #store all initialised instances in the defined list
         Breed.all_instances.append(self) 
-#open the fasta file and save the sequence breed and sequence name in a Breed Class to be accessed later
+
+#initialise the Breed class
 def initialise_Breed(filename = dog_breeds, format = "fasta"):
     #parse through the dog_breeds file
     for record in SeqIO.parse(filename, format):
@@ -97,7 +110,7 @@ initialise_Breed()
 
 # %%
 def unique_breeds():
-    """set up a list that contains all unique breed names in a list"""
+    """Set up a list that contains all unique breed names from the class Breed in a list"""
     all_breeds = set()
     #itterate through all instances in Breed class
     for key in Breed.all_instances:
@@ -105,9 +118,8 @@ def unique_breeds():
         all_breeds.add(key.breed)
     return all_breeds
     
-
 def breed_sequences(directory = ind_breeds):
-    """write a fasta file containing all sequences that belong to the same breed """
+    """Write a fasta file containing all sequences that belong to the same breed """
     for breed in unique_breeds():
         #creates a temporary variable corresponding to each individual dog breed 
         temp = breed
@@ -119,7 +131,7 @@ def breed_sequences(directory = ind_breeds):
             #check if the breedd is the same as the current breed in the loop stored in the temp variable 
             if key.breed == temp:
                 sequences.append(key.fasta)
-                #adds the sequences to a file with the name of the breed as a filename
+        #adds the sequences to a file with the name of the breed as a filename
         SeqIO.write(sequences, filename, "fasta") 
 
 breed_sequences()
@@ -128,15 +140,13 @@ def consensus_seq(filename):
     os.chdir(ind_breeds) 
     #align all the sequences in each file
     alignments = AlignIO.parse(filename, "fasta") 
-    #assign filename to varible recordname which will be used to create a name for this record 
-    recordname = f"{filename}"
     for alignment in alignments: 
         #get summary info of each alignment to create a consensus 
         summary = SummaryInfo(alignment) 
         #create a consensus of each alignment 
         consensus = summary.dumb_consensus() 
         #create a fasta format sequence using the consensus sequence and recordname
-        seq_record = SeqRecord(Seq(consensus), id=recordname) 
+        seq_record = SeqRecord(Seq(consensus), id=filename) 
         #add each consensus seq to a list 
     return seq_record
 
@@ -284,81 +294,138 @@ mv.savefig(f"{output}/top_alignment_image")
 
 # %% [markdown]
 # Create a phylogenic tree describing the relationship between the breeds 
-# - organise this into functions 
 
 # %%
-#create a multisequence alignment between unknownn dna and all consensus sequences
-# Create a MultipleSeqAlignment object
-MSA_alignment = Bio.Align.MultipleSeqAlignment(consensus_sequences_with_unknown)
-#create a directory and filename for the MSA alignment
-filename3 = f"{output}/MSA_alignment"  
-#save the multiple sequence alignment in a clustal file 
-AlignIO.write(MSA_alignment, filename3, "clustal")
+def MSA_alignment():
+    """Create a multisequence alignment between unknownn dna and all consensus sequence"""
+    #read the file with MSA alignment 
+    sequences = SeqIO.parse(consensus_file, "fasta")
+    # Create a MultipleSeqAlignment object
+    MSA_alignment = Bio.Align.MultipleSeqAlignment(sequences)
+    #create a directory and filename for the MSA alignment
+    filename = f"{output}/MSA_alignment"  
+    #save the multiple sequence alignment in a clustal file 
+    AlignIO.write(MSA_alignment, filename, "clustal")
+    return MSA_alignment
 
+def build_phylo_tree(MSA_alignment = MSA_alignment()):
+    """Create a distance matrix from the MSA alignment"""
+    # Calculate the distance matrix
+    calculator = DistanceCalculator("identity")
+    #distance_matrix = calculator.get_distance(MSA_alignment)
+    # Build the tree using the neighbor-joining method
+    constructor = DistanceTreeConstructor(calculator, method="nj")
+    breeds_tree = constructor.build_tree(MSA_alignment)
+    # Save the tree to a new file 
+    Phylo.write(build_phylo_tree(), "breeds_tree.xml", "phyloxml")
+    return breeds_tree
+    
 
-# Calculate the distance matrix
-calculator = DistanceCalculator("identity")
-distance_matrix = calculator.get_distance(MSA_alignment)
+#access the file where the nexus format tree is and save it in a variable 
+breeds_xml = Phylo.read("breeds_tree.xml", "phyloxml")
 
-# Build the tree using the neighbor-joining method
-constructor = DistanceTreeConstructor(calculator, method="nj")
-breeds_tree = constructor.build_tree(MSA_alignment)
-# Save the tree to a new file 
-
-Phylo.write(breeds_tree, "breeds_tree.xml", "phyloxml")
-# Convert the tree to a different format
-Phylo.convert("breeds_tree.xml", "phyloxml", "breeds_tree.nex", "nexus")
-
-breeds_nex = Phylo.read("breeds_tree.nex", "nexus")
-breeds_nex.rooted = True
 # Create a custom label function that returns None for inner clade labels
 def custom_label_func(node):
+    """Creates better phylogenetic tree visualisation by removing unwanted labels and label characters"""
     if node.is_terminal():
+        #remove the '' marks in names
         return (node.name).replace("'", "")
+    #delete non terminal node labels 
     else:
         return None
     
-import matplotlib
-fig = plt.figure(figsize=(20,15), dpi=100, frameon=False)
-matplotlib.rc("font", size=12)
+#plot the tree 
+fig = plt.figure(figsize=(20,15), dpi=100, frameon=True)
 ax = plt.gca()
-Phylo.draw(breeds_nex, show_confidence=True, axes=ax, label_func=custom_label_func)
-plt.savefig(f"{output}/Phylogenetic_tree")
+Phylo.draw(breeds_xml, show_confidence=True, axes=ax, label_func=custom_label_func)
 
-# %% [markdown]
-# #find regions of the most diversity 
-# #define diversity as more than 10 sequences differing in that region 
-
-# %%
-#make a plot to represent the conservation levels of the MSA
-
-MSA_alignment = AlignIO.read(f"{output}/MSA_alignment", "clustal")  
-
-l = len(MSA_alignment[0]) 
-mv = MsaViz(MSA_alignment, format="clustal", start=50, end=150, wrap_length=100, show_consensus=True)
-mv.savefig(f"{output}/MSA_alignment_image")
+fig.savefig(f"{output}/Phylogenetic_tree")
 
 
 # %% [markdown]
 # Probability 
 
 # %%
-#convert X to " "
-def ambiguous_letter_deltion():
-    """this function removes all the instances of unknown nucleotides from the sequences in Breed_consensus class. Fasta format remains the same"""
-    for instance in  Breed_consensus.all_instances:
-            if instance == "AIDI":
-                  print(instance.sequence)
-            #sequence = (instance.sequence).replace("X", "")
-            #instance.self = Breed_consensus(sequence, instance.breed, instance.fasta)
+#set the sequence length to mirror the real database
+seq_len = 16729
+#set the size of the database to mirror the real one 
+database_size = 100
 
-ambiguous_letter_deltion()
+def base_content(sequence=mystery_sequence[0]):
+    """generate the proportion of each base in a DNA sequence"""
+    bases = ["G", "C", "T", "A"]
+    bases_count = {}
+    total_count = len(sequence)
+    #itterate through each base of the sequence to find the percentage intiger of each base 
+    for base in bases:
+        bases_count[base] = int(sequence.count(base) / total_count * 100)
+    return list(bases_count.values()) 
 
+def random_DNA(length):
+    """Generate random sequences with the same proportion of base content as the real sequence"""
+    bases = ["G", "C", "T", "A"]
+    #generate the DNA in form of a list of bases
+    random_DNA = random.choices(bases, weights=base_content(), k=length)
+    #output the sequence with bases joied together
+    return (''.join(random_DNA) )
+
+def random_sequences(database_size = database_size, seq_len = seq_len):
+    """generates a list of sequences of the size and length of the original database"""
+    rand_seq_database = []
+    #reapeats the random DNA generation process to miror the database length
+    for number in range(database_size):
+        rand_seq = random_DNA(seq_len)
+        #add each generated sequence to a list 
+        rand_seq_database.append(rand_seq)
+    return rand_seq_database
+    
+sequences = random_sequences()
+
+#Calculate the alignment scores for each random alignment.
+def alignment_scores(target = random_DNA(seq_len), sequences = sequences):
+    """Generates alignment scores for all the sequences found in the random sequences list"""
+    scores = []
+    #itterates through the seequences in a list and generates an alignment score
+    for sequence in sequences:
+        alignment = simple_alignment(target, sequence)
+        #alignment score is added to a list
+        scores.append(alignment[0])
+    #list of alignment scores is returned
+    return scores
+
+random_scores = alignment_scores()
 
 
 # %%
+# Score frequencies of random sequence alignment scores
+freqs = np.bincount(random_scores) / database_size
 
-def alignment_scores(unknown_sequence = mystery_sequence[0]):
+# Use method of moments to estimate distribution parameters
+l = np.pi / np.sqrt(6 * np.var(random_scores))
+u = np.mean(random_scores) - np.euler_gamma / l
+
+# The probability density function of the extreme value distribution
+def pdf(x, l, u):
+    t = np.exp(-l * (x - u))
+    return l * t * np.exp(-t)
+
+# Coordinates for the fit
+x = np.linspace(11000, len(freqs)-1, 500)
+y = pdf(x, l, u)
+
+#plot the probability graph 
+fig, ax = plt.subplots(figsize=(8.0, 4.0))
+ax.plot(x, y, color="gray", linestyle="--", label="Fit")
+ax.set_xlabel("Similarity score")
+ax.set_ylabel("Probability")
+ax.set_xlim(11000, len(freqs)-1)
+ax.legend(loc="upper left")
+fig.tight_layout()
+fig.savefig(f"{output}/probability_distribution")
+
+# %%
+#create a function to calculate alignment scores
+def breed_alignment_scores(unknown_sequence = mystery_sequence[0]):
     """uses the simple alignment function to create an alignment between unknown sequence and consenus sequences. Returns a list of breeds with the corresponding alignment score."""
     #set up a list for all alignment score 
     scores = {}
@@ -366,50 +433,30 @@ def alignment_scores(unknown_sequence = mystery_sequence[0]):
     for instance in Breed_consensus.all_instances:
         #determine the score of each alignment
         score = (simple_alignment(instance.sequence, unknown_sequence)[0])
-        scores[instance.breed] = score
+        #add score and sequence to scores dictionary
+        scores[instance.breed] = [score, len(instance.sequence), len(unknown_sequence[0])]
     return scores
 
-breed_scores = alignment_scores()
-
-def compute_e_value(scores = breed_scores):
-    """this function takes in a dictionary of alignment scores and breed names to return a dictionary of breed names and E_values in decadic logarithm form"""
-    e_values = {}
-    for breed, score in zip(scores.keys(), scores.values()):
-        e_value = biotite.log_evalue(score, l, l)
-        e_values[breed] = e_value
-    return e_values
-
-print(compute_e_value())
-#log_evalue(score, seq1_length, seq2_length)
-
-# %% [markdown]
-# Tests 
+#save results of the function in a variable 
+breed_scores = breed_alignment_scores()
 
 # %%
-
-query = biotite.sequence.NucleotideSequence("CGACGGCGTCTACGAGTCAACATCATTC")
-hit = biotite.sequence.NucleotideSequence("GCTTTATTACGGGTTTACGAGTTCAACATCACGAAAACAA")
-example = biotite.sequence.io.fasta.get_sequence(mystery_breed)
-
-
-matrix = biotite.sequence.align.SubstitutionMatrix.std_nucleotide_matrix()
-gap_penalty = (-12, -2)
-alignment = biotite.sequence.align.align_optimal(query, hit, matrix, gap_penalty, local=True)[0]
-print(alignment)
-print(alignment.score)
-
-# Ensure deterministic results
-np.random.seed(0)
-# Sequences in database have a GC content of 0.6
-background = np.array([0.2, 0.3, 0.3, 0.2])
-estimator = biotite.sequence.align.EValueEstimator.from_samples(example.alphabet, matrix, gap_penalty, background, sample_length=100)
-
-
-log_e = estimator.log_evalue(alignment.score, len(query), 100 * len(hit))
-print(f"E-value = {10**log_e:.2e}")
+#create a dataframe to strore the proability of the alignment with each breed consensus occuring by chance
+def probability_df():
+    probabilities = []
+    #itterate through alignemnt scores of the actual dataset 
+    for breed, score in zip(breed_scores.keys(), breed_scores.values()):
+        #get the breed name and probability of alignment occuring by chance
+        line = breed, pdf(score[0], l, u)
+        #add the breed and probability to a list
+        probabilities.append(line)
+    #convert the list of breeds and probabilities to a dataframe
+    df = pd.DataFrame(probabilities, columns=["breed", "probability"])
+    #sor the dataframe so that the least likelly to occur by chance alignment is at the top 
+    df = df.sort_values("probability")
+    #save the dataframe to a file  
+    df.to_csv(f'{output}/probability of alignment occuring by chance.csv')
+    #funtion returns the dataframe create for testing and further modificaations purpouses
+    return df
 
 
-
-
-# %% [markdown]
-# 
