@@ -1,6 +1,4 @@
 ![Process map](https://github.com/lprzem01/Coursework/blob/main/my_project/doc/Process%20map.png)
-
-````markdown
 # Mystery Breed Sequence Identification
 
 ## Overview
